@@ -1,0 +1,9 @@
+{
+  "network": "GenLayer Bradbury Phase 2",
+  "chainId": 4221,
+  "contract": "0x054a7a333A488af1C65A603edBcC7862aB2F2311",
+  "transactionId": "0x745ceb9e3bab815a74981bae8784ce5dc993d49c24b3ab524f2c9461d3a7e7ae",
+  "genesis": "0x17d89764d4f4f963158fc4c5e8f2cb670c2837740b35f37081c12860c3df97e4",
+  "source": "contracts/delivery_receipt.py",
+  "sourceSha256": "323c65f0838bbf6e3ad3bb1a00bc29221a471984059b835dc3101e7e21c211d7"
+}

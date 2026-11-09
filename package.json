@@ -1,0 +1,7 @@
+{
+  "name": "delivery-receipt",
+  "private": true,
+  "type": "module",
+  "scripts": { "start": "node scripts/server.mjs", "deploy": "node scripts/deploy-app.mjs", "demo": "node scripts/demo.mjs", "test": "node --test tests/contract.test.mjs", "check": "node scripts/check.mjs", "simulate": "node scripts/simulate.mjs" },
+  "dependencies": { "genlayer-js": "2.0.0-rc.2", "viem": "2.38.5" }
+}

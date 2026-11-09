@@ -1,0 +1,31 @@
+<!doctype html>
+<html lang="zh-CN">
+<head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>交付尺 · Delivery Receipt</title><meta name="description" content="把模糊的交付约定，变成逐项可核验的链上验收记录。"><link rel="icon" href="/favicon.svg"><link rel="stylesheet" href="/style.css"></head>
+<body>
+<div class="app-shell">
+ <aside class="sidebar">
+  <a class="brand" href="/" aria-label="交付尺首页"><span class="brand-mark">尺<span></span></span><span>交付尺<small>DELIVERY RECEIPT</small></span></a>
+  <p class="nav-caption">工作空间</p>
+  <button class="nav-item active" id="nav-work"><span data-icon="grid"></span>验收工作台<span class="nav-count" id="nav-count">0</span></button>
+  <button class="nav-item" id="nav-cost"><span data-icon="chart"></span>交互费用</button>
+  <div class="side-note"><span class="tiny-label">WHY GENLAYER</span><h3>验收，需要判断力。</h3><p>由运行不同 AI 模型的验证者对交付内容达成共识，结果留在链上。</p><a href="https://docs.genlayer.com/" target="_blank" rel="noopener">了解共识机制 <span>↗</span></a></div>
+  <div class="network"><span class="status-dot"></span><div>Bradbury Phase 2<small>Arbitrum Orbit · 测试网</small></div><span class="network-pill">4221</span></div>
+ </aside>
+ <div class="main-shell">
+  <header class="topbar"><div><span class="breadcrumb">工作空间</span><span class="slash">/</span><span id="page-label">验收工作台</span><button class="mobile-cost" id="mobile-cost">费用 ↗</button></div><div class="wallet"><span data-icon="wallet"></span><div><small>本地测试钱包</small><span id="wallet-address">正在连接…</span></div><span class="wallet-balance" id="wallet-balance">— GEN</span></div></header>
+  <main>
+   <div class="page-heading"><div><div class="eyebrow"><span></span> EVIDENCE BEFORE ACCEPTANCE</div><h1>交付好不好，<em>逐条见分晓。</em></h1><p>先约定标准，再提交成果。让验收有依据，让结果可追溯。</p></div><button class="primary" id="new-brief"><span data-icon="plus"></span>新建验收单</button></div>
+   <div class="notice" id="notice" role="status" hidden></div>
+   <section class="stats" aria-label="工作空间概览"><div><span class="stat-icon" data-icon="file"></span><div><span class="stat-label">全部验收单</span><strong id="stat-total">—</strong></div></div><div><span class="stat-icon green" data-icon="check"></span><div><span class="stat-label">已完成共识验收</span><strong id="stat-reviewed">—</strong></div></div><div><span class="stat-icon purple" data-icon="clock"></span><div><span class="stat-label">等待处理</span><strong id="stat-pending">—</strong></div></div><div><span class="stat-icon amber" data-icon="chart"></span><div><span class="stat-label">本钱包累计净消耗</span><strong class="cost-stat"><span id="stat-cost">—</span><small> GEN</small></strong></div></div></section>
+   <section id="workspace" class="workspace">
+    <div class="list-panel"><div class="panel-heading"><h2>验收单</h2><button class="icon-button" id="refresh" aria-label="刷新验收单"><span data-icon="refresh"></span></button></div><label class="search"><span data-icon="search"></span><input id="search" placeholder="搜索标题或编号" aria-label="搜索验收单"></label><div class="filters"><button class="selected" data-filter="all">全部</button><button data-filter="open">待提交</button><button data-filter="submitted">待验收</button><button data-filter="reviewed">已验收</button></div><div id="brief-list" class="brief-list"><p class="empty-small">正在读取链上验收单…</p></div><div class="list-footer"><span class="status-dot"></span> 数据来自真实智能合约 <a id="contract-link" target="_blank" rel="noopener">查看 ↗</a></div></div>
+    <div class="detail-panel" id="detail-panel"><div class="empty-detail"><div class="empty-illustration">✓</div><h2>每一次交付，都值得认真验收</h2><p>创建第一份验收单，写下明确标准。<br>AI 会逐项给出判断、原文证据和修改建议。</p><button class="primary" id="empty-create">创建验收单 <span>↗</span></button><div class="empty-steps"><span>01 约定标准</span><i></i><span>02 提交成果</span><i></i><span>03 共识验收</span></div></div></div>
+   </section>
+   <section id="cost-panel" class="cost-panel" hidden><div class="panel-heading"><div><h2>每一笔消耗，都有记录</h2><p>只使用测试 GEN。协议预付额度、最终净消耗与交易链接分别记录。</p></div><button class="secondary" id="export-cost"><span data-icon="download"></span>导出费用记录</button></div><div class="table-wrap"><table><thead><tr><th>操作 / 时间</th><th>状态</th><th>协议预付</th><th>最终净消耗</th><th>链上记录</th></tr></thead><tbody id="cost-rows"></tbody></table></div><p class="fine-print">净消耗 = 操作前余额 − 最终结算后余额，包含本钱包支付的链上 gas 与协议费用，扣除退款。若同时在其他应用操作，余额差可能包含那些交易；等待中的交易暂不计为最终费用。</p></section>
+   <footer class="page-footer"><span>交付尺 <span class="muted">/</span> 让约定有据可依</span><span>本机开发版 · 文本证据验收 · 无资金托管</span></footer>
+  </main>
+ </div>
+</div>
+<dialog id="create-dialog"><form id="create-form"><div class="dialog-head"><div><div class="eyebrow">NEW ACCEPTANCE BRIEF</div><h2>把“做好一点”写具体。</h2></div><button type="button" class="icon-button" id="close-dialog" aria-label="关闭">✕</button></div><label>验收单标题<input name="title" required minlength="3" maxlength="100" placeholder="例如：新品发布邮件验收"></label><label>验收标准 <span class="label-note">每行一条，1–8 条</span><textarea name="criteria" required rows="5" placeholder="明确写出产品名称和主要用途&#10;包含售价、优惠截止日期和购买入口&#10;结尾有一句明确的行动号召"></textarea></label><div class="form-tip"><span data-icon="lock"></span><p>标准创建后不可更改。标题、标准、交付内容与结果会公开记录在测试链上，请勿填写隐私或商业机密。</p></div><div class="dialog-footer"><button type="button" class="secondary" id="fill-example">填入示例</button><button class="primary" type="submit">创建链上验收单 <span>↗</span></button></div></form></dialog>
+<script type="module" src="/app.js"></script>
+</body></html>
