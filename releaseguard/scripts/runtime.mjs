@@ -75,7 +75,18 @@ async function finish(record){
   console.log(`${record.action}: finalized, net ${record.netCostGEN} GEN`);
   return record;
 }
+function refreshState(){
+  if(!currentRecord&&fs.existsSync(statePath))Object.assign(state,JSON.parse(fs.readFileSync(statePath,'utf8')));
+}
 export async function execute(action,args=[]){
+  const lockPath=path.join(ROOT,'logs/signer.lock');
+  fs.mkdirSync(path.dirname(lockPath),{recursive:true});
+  let lock;
+  try{lock=fs.openSync(lockPath,'wx');}catch{throw new Error('Another signer operation is active; do not resend.');}
+  try{refreshState();return await executeTracked(action,args);}
+  finally{fs.closeSync(lock);fs.unlinkSync(lockPath);}
+}
+async function executeTracked(action,args=[]){
   if(state.pending!==null&&state.pending!==undefined)throw new Error('A transaction is pending. Reconcile it before sending another.');
   if(action!=='deploy'&&!state.contract)throw new Error('Deploy the application first');
   if(action==='deploy'&&state.contract)throw new Error('Application is already deployed');
@@ -121,6 +132,7 @@ export async function readBriefs(){
   return JSON.parse(await client.readContract({address:state.contract,functionName:'list_checks',args:[0,50]}));
 }
 export async function snapshot(){
+  refreshState();
   const b=await balance();
   const settled=state.transactions.reduce((sum,r)=>sum+BigInt(r.netCostWei??0),0n);
   return {wallet:address,contract:state.contract??null,chainId:4221,network:'Bradbury Phase 2',balanceGEN:formatEther(b),netCostGEN:formatEther(settled),balanceChangeGEN:formatEther(BigInt(state.initialBalanceWei??b)-b),transactions:state.transactions.map(({args,...r})=>r),pending:state.pending!==null&&state.pending!==undefined,...await readBriefs()};

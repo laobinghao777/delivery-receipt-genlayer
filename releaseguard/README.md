@@ -20,4 +20,14 @@ Bradbury Phase 2, chain 4221. Contract `0x92542C9aFb218B42C3a6bFcd3affFbA6Bd85F1
 
 Deployment transaction: https://scan.bradbury.genlayer.com/tx/0x2acfe99b948b23ff3d31568bbfd72fe5cb217145bb48be752a1be4b2aa25ef65
 
-Finalized deployment net cost: **0.000141736010002117 GEN**. Interaction testing is still in progress. No Portal submission or rewards are claimed.
+Finalized deployment net cost: **0.000141736010002117 GEN**.
+
+## Verified example
+
+Record 1 checks the claim that Flask 3.1.2 fixes `stream_with_context` failing in async views. All three operations finalized successfully. The stored verdict is **supported**, with exact source passages and snapshot SHA-256 `0d17d9027d9cfb4fb359dfd20b14292507066149c0a9541b4dda665fa3315472`.
+
+- Create: https://scan.bradbury.genlayer.com/tx/0x52ece6162d2cd644a27f3372f3d6974069ff0f76fc5893f7de6d19db618082c4
+- Capture: https://scan.bradbury.genlayer.com/tx/0x1ba6450c4916c8341ee0d1f07c00f62f651a240a0d00dc1f76da4ceb44f2b41a
+- Assess: https://scan.bradbury.genlayer.com/tx/0x98220efe4bc33a7830389ca9648326644c5705465bd098ba34a98d74c4a57152
+
+Settled workflow net cost: **0.000251974810005998 GEN**. Including deployment: **0.000393710820008115 GEN**. Temporary local RPC read failures were reconciled using the original transaction IDs; no duplicate transactions were sent. No Portal approval or rewards are claimed.
