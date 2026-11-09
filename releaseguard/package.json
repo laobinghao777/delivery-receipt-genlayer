@@ -1,0 +1,7 @@
+{
+  "name": "releaseguard",
+  "private": true,
+  "type": "module",
+  "scripts": { "start": "node scripts/server.mjs", "deploy": "node scripts/run.mjs deploy", "test": "python tests.py" },
+  "dependencies": { "genlayer-js": "2.0.0-rc.2", "viem": "2.38.5" }
+}
