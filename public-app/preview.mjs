@@ -1,0 +1,3 @@
+import http from 'node:http';
+import worker from './dist/server/index.js';
+http.createServer(async(req,res)=>{try{const body=['GET','HEAD'].includes(req.method)?undefined:await new Promise((resolve,reject)=>{let b='';req.on('data',c=>b+=c);req.on('end',()=>resolve(b));req.on('error',reject);});const response=await worker.fetch(new Request('http://127.0.0.1:4320'+req.url,{method:req.method,headers:req.headers,body}));res.writeHead(response.status,Object.fromEntries(response.headers));res.end(Buffer.from(await response.arrayBuffer()));}catch(e){res.writeHead(500);res.end(e.message);}}).listen(4320,'127.0.0.1',()=>console.log('Preview: http://127.0.0.1:4320/'));

@@ -1,0 +1,1 @@
+{"name":"genlayer-proofwork","private":true,"type":"module","scripts":{"build":"node build.mjs"},"dependencies":{"genlayer-js":"2.0.0-rc.2","viem":"2.38.5"},"devDependencies":{"esbuild":"0.25.12"}}
